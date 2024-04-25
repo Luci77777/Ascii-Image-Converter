@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ASCII Art Result</title>
+    <style>
+        body {
+            font-family: monospace; /* Use a monospaced font for ASCII art */
+            background-color: #f0f0f0; /* Set background color */
+            padding: 20px; /* Add some padding */
+        }
+
+        h1 {
+            text-align: center; /* Center align the heading */
+        }
+
+        pre {
+            white-space: pre-wrap; /* Preserve line breaks */
+            background-color: #ffffff; /* Set background color */
+            padding: 20px; /* Add some padding */
+            border: 1px solid #ccc; /* Add border */
+            border-radius: 5px; /* Add border radius */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add shadow */
+            font-size: 14px; /* Adjust font size as needed */
+            line-height: 1.5; /* Adjust line height */
+            overflow-x: auto; /* Enable horizontal scrolling if needed */
+        }
+
+        .rotate-btn {
+            display: block; /* Display the button as block-level element */
+            margin-top: 10px; /* Add some space above the button */
+            text-align: center; /* Center align the button */
+        }
+    </style>
+</head>
+<body>
+    <h1>ASCII Art Result</h1>
+    <pre id="ascii-art">{{ ascii_art }}</pre>
+
+    <!-- Button to rotate ASCII art -->
+    <button class="rotate-btn" onclick="rotateAscii()">Rotate 90 Degrees</button>
+
+    <script>
+        // JavaScript function to rotate ASCII art by 90 degrees
+        function rotateAscii() {
+            var preElement = document.getElementById('ascii-art');
+            var asciiArt = preElement.textContent; // Get the ASCII art text
+
+            // Split ASCII art into lines
+            var lines = asciiArt.split('\n');
+            var rotatedArt = '';
+
+            // Transpose the ASCII art matrix
+            for (var i = 0; i < lines[0].length; i++) {
+                for (var j = 0; j < lines.length; j++) {
+                    rotatedArt += lines[j].charAt(i);
+                }
+                rotatedArt += '\n';
+            }
+
+            // Reverse each row to complete the rotation
+            rotatedArt = rotatedArt.split('\n').map(function(line) {
+                return line.split('').reverse().join('');
+            }).join('\n');
+
+            preElement.textContent = rotatedArt; // Update the ASCII art text
+        }
+    </script>
+</body>
+</html>
